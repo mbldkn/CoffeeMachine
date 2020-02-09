@@ -4,6 +4,7 @@ import com.example.coffeemachine.enums.CoffeeType;
 import com.example.coffeemachine.enums.CupSize;
 import com.example.coffeemachine.enums.MilkAmount;
 import com.example.coffeemachine.models.Coffee;
+import com.example.coffeemachine.models.PrepareCoffeeResponse;
 import com.example.coffeemachine.models.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,9 +44,9 @@ public class CoffeeMachineController
         return coffeeService.getStock();
     }
 
-    @GetMapping("/coffee-price")
-    public double CoffeePrice(@RequestBody Coffee coffee)
+    @GetMapping("/prepare-coffee")
+    public PrepareCoffeeResponse PrepareCoffee(@RequestBody Coffee coffee)
     {
-        return coffeeService.calculatePrice(coffee);
+        return coffeeService.prepareCoffee(coffee);
     }
 }

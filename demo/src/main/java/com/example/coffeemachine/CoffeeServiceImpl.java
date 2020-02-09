@@ -5,6 +5,8 @@ import com.example.coffeemachine.enums.CupSize;
 import com.example.coffeemachine.enums.MilkAmount;
 import com.example.coffeemachine.enums.Prices;
 import com.example.coffeemachine.models.Coffee;
+import com.example.coffeemachine.models.GenericResponse;
+import com.example.coffeemachine.models.PrepareCoffeeResponse;
 import com.example.coffeemachine.models.Stock;
 import org.springframework.stereotype.Service;
 
@@ -53,9 +55,39 @@ public class CoffeeServiceImpl implements CoffeeService
         return new Stock();
     }
 
-    @Override
+    public PrepareCoffeeResponse prepareCoffee(Coffee coffee)
+    {
+        PrepareCoffeeResponse prepareCoffeeResponse = new PrepareCoffeeResponse();
+        GenericResponse genericResponse = isAvailable(coffee);
+        prepareCoffeeResponse.message = genericResponse.message;
+        prepareCoffeeResponse.status = genericResponse.status;
+
+        if(prepareCoffeeResponse.status == 1)
+            return prepareCoffeeResponse;
+
+        prepareCoffeeResponse.price = calculatePrice(coffee);
+        prepareCoffeeResponse.coffee = coffee;
+        updateStock(coffee);
+
+        return prepareCoffeeResponse;
+    }
+
+    public void updateStock(Coffee coffee)
+    {
+        double cupSize = coffee.cupSize.getSize();
+        double milkAmount = (cupSize*coffee.milkAmount.getPercentage())/100;
+        double waterAmount = cupSize - milkAmount;
+        String coffeeName = coffee.coffeeType.name().toLowerCase() + "CoffeeAmount";
+
+        Inventory.setCoffeeAmount(coffeeName, coffee.cupSize.getCoffeeAmount());
+        Inventory.waterAmount -= waterAmount;
+        Inventory.milkAmount -= milkAmount;
+        Inventory.cupCount -= 1;
+    }
+
     public double calculatePrice(Coffee coffee)
     {
+        //TODO isAvailable metodu ile kod tekrarı var. Burası sonra çözülecek.
         double cupSize = coffee.cupSize.getSize();
         double milkAmount = (cupSize*coffee.milkAmount.getPercentage())/100;
         double waterAmount = cupSize - milkAmount;
@@ -80,13 +112,40 @@ public class CoffeeServiceImpl implements CoffeeService
         return price;
     }
 
-    @Override
-    public boolean prepareCoffee() {
-        return false;
-    }
+    public GenericResponse isAvailable(Coffee coffee)
+    {
+        GenericResponse response =  new GenericResponse();
+        response.status = 1;
 
-    @Override
-    public void UpdateStock() {
+        String coffeeName = coffee.coffeeType.name().toLowerCase() + "CoffeeAmount";
+        double coffeeAmount = Inventory.getCoffeeAmount(coffeeName);
+        double milkAmount = (coffee.cupSize.getSize()*coffee.milkAmount.getPercentage())/100;
+        double waterAmount = coffee.cupSize.getSize() - milkAmount;
 
+        //TODO if kontrolleri yerine başka bir çözüm aranmalı. Hoş bir yapı değil.
+        if(Inventory.cupCount == 0)
+        {
+            response.message = "Yeterince bardağınız bulunmamaktadır";
+            return response;
+        }
+        if(coffee.cupSize.getCoffeeAmount() > coffeeAmount)
+        {
+            response.message = "Yeterince " + coffee.coffeeType.name().toLowerCase() + " kahveniz bulunmamaktadır";
+            return response;
+        }
+        if(milkAmount > Inventory.milkAmount)
+        {
+            response.message = "Makinede yeterince süt bulunmamaktadır.";
+            return response;
+        }
+        if(waterAmount > Inventory.waterAmount)
+        {
+            response.message = "Makinede yeterince su bulunmamaktadır";
+            return response;
+        }
+
+        response.status = 0;
+        response.message = "Kahveniz hazır";
+        return response;
     }
 }

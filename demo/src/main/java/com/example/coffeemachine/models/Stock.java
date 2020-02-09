@@ -9,14 +9,14 @@ import lombok.Setter;
 @Setter
 public class Stock
 {
-    public int milkAmount = Inventory.milkAmount;
-    public int waterAmount = Inventory.waterAmount;
+    public double milkAmount = Inventory.milkAmount;
+    public double waterAmount = Inventory.waterAmount;
     public int cupCount = Inventory.cupCount;
-    public int standartCoffeeAmount = Inventory.standartCoffeeAmount;
-    public int hazelnutCoffeeAmount = Inventory.hazelnutCoffeeAmount;
-    public int guatemalaCoffeeAmount = Inventory.guatemalaCoffeeAmount;
-    public int costaRicaCoffeeAmount = Inventory.costaRicaCoffeeAmount;
-    public int colombiaCoffeeAmount = Inventory.colombiaCoffeeAmount;
-    public int antiguaCoffeeAmount = Inventory.antiguaCoffeeAmount;
-    public int elSalvadorCoffeeAmount = Inventory.elSalvadorCoffeeAmount;
+    public double standartCoffeeAmount = Inventory.standartCoffeeAmount;
+    public double hazelnutCoffeeAmount = Inventory.hazelnutCoffeeAmount;
+    public double guatemalaCoffeeAmount = Inventory.guatemalaCoffeeAmount;
+    public double costaRicaCoffeeAmount = Inventory.costaRicaCoffeeAmount;
+    public double colombiaCoffeeAmount = Inventory.colombiaCoffeeAmount;
+    public double antiguaCoffeeAmount = Inventory.antiguaCoffeeAmount;
+    public double elSalvadorCoffeeAmount = Inventory.elSalvadorCoffeeAmount;
 }
