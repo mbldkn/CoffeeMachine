@@ -16,5 +16,5 @@ public interface CoffeeService
     List<MilkAmount> getMilkAmount();
     Stock getStock();
     PrepareCoffeeResponse prepareCoffee(Coffee coffee);
-    void updateStock(Coffee coffee);
+    void refillStock();
 }

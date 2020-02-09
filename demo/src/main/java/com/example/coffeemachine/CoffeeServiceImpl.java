@@ -72,6 +72,21 @@ public class CoffeeServiceImpl implements CoffeeService
         return prepareCoffeeResponse;
     }
 
+    //TODO Database kullanmaya başlayınca refill işlemi farklı şekilde yapılacak. Şimdilik böyle saçma bir şey maalesef.
+    public void refillStock()
+    {
+        Inventory.waterAmount = 2000;
+        Inventory.milkAmount = 1000;
+        Inventory.cupCount = 200;
+        Inventory.standartCoffeeAmount = 500;
+        Inventory.hazelnutCoffeeAmount = 500;
+        Inventory.guatemalaCoffeeAmount = 500;
+        Inventory.costaRicaCoffeeAmount = 500;
+        Inventory.colombiaCoffeeAmount = 500;
+        Inventory.antiguaCoffeeAmount = 500;
+        Inventory.elSalvadorCoffeeAmount = 500;
+    }
+
     public void updateStock(Coffee coffee)
     {
         double cupSize = coffee.cupSize.getSize();
@@ -84,6 +99,7 @@ public class CoffeeServiceImpl implements CoffeeService
         Inventory.milkAmount -= milkAmount;
         Inventory.cupCount -= 1;
     }
+
 
     public double calculatePrice(Coffee coffee)
     {
