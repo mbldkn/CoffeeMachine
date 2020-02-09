@@ -3,9 +3,7 @@ package com.example.coffeemachine;
 import com.example.coffeemachine.enums.CoffeeType;
 import com.example.coffeemachine.enums.CupSize;
 import com.example.coffeemachine.enums.MilkAmount;
-import com.example.coffeemachine.models.Coffee;
-import com.example.coffeemachine.models.PrepareCoffeeResponse;
-import com.example.coffeemachine.models.Stock;
+import com.example.coffeemachine.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,19 +20,19 @@ public class CoffeeMachineController
     CoffeeService coffeeService;
 
     @GetMapping("/coffee-types")
-    public List<CoffeeType> CoffeeTypes()
+    public List<String> CoffeeTypes()
     {
         return coffeeService.getCoffeeTypes();
     }
 
     @GetMapping("/cup-sizes")
-    public List<CupSize> CupSizes()
+    public List<String> CupSizes()
     {
         return coffeeService.getCupSizes();
     }
 
     @GetMapping("/milk-amount")
-    public List<MilkAmount> MilkAmount()
+    public List<MilkAmountResponse> MilkAmount()
     {
         return coffeeService.getMilkAmount();
     }
