@@ -1,32 +1,50 @@
-<div>
-  <div style="width:200px;">
-    <br>Bardak Boyutu <br>
-    <select>
-      <option value="" disabled selected hidden>Lütfen Bardak Boyutunu Seçiniz</option>
-      <option value="1">Küçük</option>
-      <option value="2">Orta</option>
-      <option value="3">Büyük</option>
-    </select>
+<body>
+  <div>
+    <div style="width:200px;">
+      <br>Bardak Boyutu <br>
+      <select [(ngModel)]="cupSize">
+        <option *ngFor="let cup of cupTypes" [value]="cup" [attr.selected]="cup">
+          <p *ngIf="cup === 'SMALL'">Küçük</p>
+          <p *ngIf="cup === 'MEDIUM'">Orta</p>
+          <p *ngIf="cup === 'LARGE'">Büyük</p>
+        </option>
+      </select>
+    </div>
+
+    <div style="width:200px;">
+      <br>Süt Miktarı <br>
+      <select [(ngModel)]="milkAmount">
+        <option *ngFor="let milk of milkTypes" [value]="milk" [attr.selected]="milk">
+          <p *ngIf="milk === 'NONE'">Sütsüz</p>
+          <p *ngIf="milk === 'ONESHOT'">Az Sütlü</p>
+          <p *ngIf="milk === 'TWOSHOTS'">Orta</p>
+          <p *ngIf="milk === 'THREESHOTS'">Bol Sütlü</p>
+        </option>
+      </select>
+    </div>
+
+    <div style="width:200px;">
+      <br>Kahve Türü<br>
+      <select [(ngModel)]="coffeeType">
+        <option *ngFor="let coffee of coffeeTypes" [value]="coffee" [attr.selected]="coffee">
+          {{coffee}}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <p style="color: crimson;" *ngIf="stock.milkAmount <= 100">Süt Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.waterAmount <= 100">Su Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.cupCount <= 10">Bardak Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.standartCoffeeAmount <= 100">Standar Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.hazelnutCoffeeAmount <= 100">HazelNut Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.guatemalaCoffeeAmount <= 100">Guatemala Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.costaRicaCoffeeAmount <= 100">Costa Rica Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.colombiaCoffeeAmount <= 100">Colombia Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.antiguaCoffeeAmount <= 100">Antigua Bitmek Üzere</p>
+      <p style="color: crimson;" *ngIf="stock.elSalvadorCoffeeAmount <= 100">El Salvador Kahve Bitmek Üzere</p>
+    </div>
+    <div><button on-click="prepareCoffee()">Kahveyi Hazırla</button></div>
+    <div><button on-click="refill()">Stok Yenile</button></div>
   </div>
-  
-  <div style="width:200px;">
-    <br>Süt Miktarı <br>
-    <select>
-      <option value="" disabled selected hidden>Lütfen Süt Miktarını Seçiniz</option>
-      <option value="NONE">Sütsüz</option>
-      <option value="ONESHOT">Az</option>
-      <option value="TWOSHOTS">Orta</option>
-      <option value="THREESHOTS">Bol</option>
-    </select>
-  </div>
-  
-  <div style="width:200px;">
-    <br>Kahve Türü<br>
-    <select>
-      <option value="" disabled selected hidden>Lütfen Bardak Boyutunu Seçiniz</option>
-      <option value="1">Küçük</option>
-      <option value="2">Orta</option>
-      <option value="3">Büyük</option>
-    </select>
-  </div>
-</div>
+</body>

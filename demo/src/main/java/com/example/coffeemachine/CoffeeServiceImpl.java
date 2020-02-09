@@ -4,7 +4,10 @@ import com.example.coffeemachine.enums.CoffeeType;
 import com.example.coffeemachine.enums.CupSize;
 import com.example.coffeemachine.enums.MilkAmount;
 import com.example.coffeemachine.enums.Prices;
-import com.example.coffeemachine.models.*;
+import com.example.coffeemachine.models.Coffee;
+import com.example.coffeemachine.models.GenericResponse;
+import com.example.coffeemachine.models.PrepareCoffeeResponse;
+import com.example.coffeemachine.models.Stock;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
@@ -14,57 +17,42 @@ import java.util.List;
 @Service
 public class CoffeeServiceImpl implements CoffeeService
 {
-    public List<String> getCoffeeTypes()
+    public List<CoffeeType> getCoffeeTypes()
     {
-        List<String> coffeeTypes = new ArrayList<>();
-        coffeeTypes.add(CoffeeType.STANDART.name());
-        coffeeTypes.add(CoffeeType.ANTIGUA.name());
-        coffeeTypes.add(CoffeeType.COLOMBIA.name());
-        coffeeTypes.add(CoffeeType.COSTARICA.name());
-        coffeeTypes.add(CoffeeType.ELSALVADOR.name());
-        coffeeTypes.add(CoffeeType.HAZELNUT.name());
-        coffeeTypes.add(CoffeeType.GUATEMALA.name());
+        List<CoffeeType> coffeeTypes = new ArrayList<>();
+        coffeeTypes.add(CoffeeType.STANDART);
+        coffeeTypes.add(CoffeeType.ANTIGUA);
+        coffeeTypes.add(CoffeeType.COLOMBIA);
+        coffeeTypes.add(CoffeeType.COSTARICA);
+        coffeeTypes.add(CoffeeType.ELSALVADOR);
+        coffeeTypes.add(CoffeeType.HAZELNUT);
+        coffeeTypes.add(CoffeeType.GUATEMALA);
         return coffeeTypes;
     }
 
-    public List<String> getCupSizes()
+    public List<CupSize> getCupSizes()
     {
-        List<String> cupSizes = new ArrayList<>();
-        cupSizes.add(CupSize.SMALL.name());
-        cupSizes.add(CupSize.MEDIUM.name());
-        cupSizes.add(CupSize.LARGE.name());
+        List<CupSize> cupSizes = new ArrayList<>();
+        cupSizes.add(CupSize.SMALL);
+        cupSizes.add(CupSize.MEDIUM);
+        cupSizes.add(CupSize.LARGE);
         return cupSizes;
     }
 
-    public List<MilkAmountResponse> getMilkAmount()
+    public List<MilkAmount> getMilkAmount()
     {
-        List<MilkAmountResponse> milkAmountResponses = new ArrayList<>();
-        MilkAmountResponse response = new MilkAmountResponse();
-        response.name = "Sütsüz";
-        response.value = MilkAmount.NONE;
-        milkAmountResponses.add(response);
-
-        response.name = "Az Sütlü";
-        response.value = MilkAmount.ONESHOT;
-        milkAmountResponses.add(response);
-
-        response.name = "Orta";
-        response.value = MilkAmount.TWOSHOTS;
-        milkAmountResponses.add(response);
-
-        response.name = "Bol Sütlü";
-        response.value = MilkAmount.THREESHOTS;
-        milkAmountResponses.add(response);
-
+        List<MilkAmount> milkAmounts = new ArrayList<>();
+        milkAmounts.add(MilkAmount.NONE);
+        milkAmounts.add(MilkAmount.ONESHOT);
+        milkAmounts.add(MilkAmount.TWOSHOTS);
+        milkAmounts.add(MilkAmount.THREESHOTS);
         Inventory.waterAmount = 1000;
-
-        return milkAmountResponses;
+        return milkAmounts;
     }
 
     public Stock getStock()
     {
-        Stock stock = new Stock();
-        return stock;
+        return new Stock();
     }
 
     public PrepareCoffeeResponse prepareCoffee(Coffee coffee)

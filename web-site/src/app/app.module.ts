@@ -7,6 +7,7 @@ import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { ScriptLoaderService } from "src/app/service/ScriptLoaderService";
+import { FormsModule } from '@angular/forms';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './i18n', '.json');
@@ -21,6 +22,7 @@ export function createTranslateLoader(http: Http) {
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (http: Http) => new TranslateStaticLoader(http, 'i18n', '.json'),

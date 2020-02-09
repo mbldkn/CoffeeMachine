@@ -8,6 +8,10 @@ import swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class WebApiService {
+  
+    headers: Headers;
+      options: RequestOptions;
+  
       constructor(private http: Http){}
   
       postService(url: string, param: any): Observable<object>
