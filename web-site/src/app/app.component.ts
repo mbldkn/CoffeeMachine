@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { WebApiService } from 'src/app/service/web-api.service';
 import { Response } from '@angular/http';
-import swal from 'sweetalert2';
+import swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +17,10 @@ export class AppComponent
   milkTypes: any = [];
   cupTypes: any;
   coffeeTypes: any;
-  stock: any;
-  coffeeType: any;
-  milkAmount: any;
-  cupSize: any;
+  stock: any = {};
+  coffeeType: any = [];
+  milkAmount: any = [];
+  cupSize: any = [];
   coffee: any= {};
 
   constructor(_webApiService: WebApiService)
@@ -66,18 +66,54 @@ export class AppComponent
 
   public prepareCoffee() 
   {
-    var url = this.apiUrl + "prepare-coffee";
-   
-    this.coffee.coffeeType = this.coffeeType;
-    this.coffee.milkAmount = this.milkAmount;
-    this.coffee.cupSize = this.cupSize;
+    if(this.isCoffeeModelValid())
+    {
+      var url = this.apiUrl + "prepare-coffee";
+      this.coffee.coffeeType = this.coffeeType;
+      this.coffee.milkAmount = this.milkAmount;
+      this.coffee.cupSize = this.cupSize;
+  
+      console.log(this.coffee)
+  
+      this.webApiService.postService(url, this.coffee).subscribe((response: Response)=> {
+        var i: SweetAlertIcon = null;
 
-    console.log(this.coffee)
+        if(response.json().status == 0)
+          i = 'success';
+        else
+          i = 'error';        
 
-    this.webApiService.postService(url, this.coffee).subscribe((response: Response)=> {
-      swal.fire(response.json().message)
-    });
-    this.getStock();
+        swal.fire({
+          position: 'center',
+          icon: i,
+          title: response.json().message,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      });
+      this.getStock();
+    }
+  }
+
+  isCoffeeModelValid(): boolean
+  {
+    if(this.coffeeType[0] == null)
+      {
+        swal.fire("Lütfen kahve tipi seçiniz.");
+        return false;
+      }
+    if(this.milkAmount[0] == null) 
+      {
+        swal.fire("Lütfen süt miktarı seçiniz.");
+        return false;
+      }
+    if(this.cupSize[0] == null)
+      {
+        swal.fire("Lütfen bardak boyu seçiniz.");
+        return false;
+      }
+
+      return true;
   }
 
   public refill() 
