@@ -1,50 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
 <body>
-  <div>
-    <div style="width:200px;">
-      <br>Bardak Boyutu <br>
-      <select [(ngModel)]="cupSize">
-        <option *ngFor="let cup of cupTypes" [value]="cup" [attr.selected]="cup">
-          <p *ngIf="cup === 'SMALL'">Küçük</p>
-          <p *ngIf="cup === 'MEDIUM'">Orta</p>
-          <p *ngIf="cup === 'LARGE'">Büyük</p>
-        </option>
-      </select>
-    </div>
 
-    <div style="width:200px;">
-      <br>Süt Miktarı <br>
-      <select [(ngModel)]="milkAmount">
-        <option *ngFor="let milk of milkTypes" [value]="milk" [attr.selected]="milk">
-          <p *ngIf="milk === 'NONE'">Sütsüz</p>
-          <p *ngIf="milk === 'ONESHOT'">Az Sütlü</p>
-          <p *ngIf="milk === 'TWOSHOTS'">Orta</p>
-          <p *ngIf="milk === 'THREESHOTS'">Bol Sütlü</p>
-        </option>
-      </select>
-    </div>
+  <div class="jumbotron text-center">
+    <h1>Kahve Sipariş Servisi</h1>
+    <p style="color: crimson;" *ngIf="stock.milkAmount <= 100">Süt Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.waterAmount <= 100">Su Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.cupCount <= 10">Bardak Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.standartCoffeeAmount <= 100">Standar Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.hazelnutCoffeeAmount <= 100">HazelNut Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.guatemalaCoffeeAmount <= 100">Guatemala Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.costaRicaCoffeeAmount <= 100">Costa Rica Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.colombiaCoffeeAmount <= 100">Colombia Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.antiguaCoffeeAmount <= 100">Antigua Bitmek Üzere</p>
+    <p style="color: crimson;" *ngIf="stock.elSalvadorCoffeeAmount <= 100">El Salvador Kahve Bitmek Üzere</p>
+  </div>
 
-    <div style="width:200px;">
-      <br>Kahve Türü<br>
-      <select [(ngModel)]="coffeeType">
-        <option *ngFor="let coffee of coffeeTypes" [value]="coffee" [attr.selected]="coffee">
-          {{coffee}}
-        </option>
-      </select>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <br>Bardak Boyutu <br>
+        <select [(ngModel)]="cupSize" style="width: '150px';">
+          <option *ngFor="let cup of cupTypes" [value]="cup" [attr.selected]="cup">
+            <p *ngIf="cup === 'SMALL'">Küçük</p>
+            <p *ngIf="cup === 'MEDIUM'">Orta</p>
+            <p *ngIf="cup === 'LARGE'">Büyük</p>
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <br>Süt Miktarı <br>
+        <select [(ngModel)]="milkAmount" style="width: '150px';">
+          <option *ngFor="let milk of milkTypes" [value]="milk" [attr.selected]="milk">
+            <p *ngIf="milk === 'NONE'">Sütsüz</p>
+            <p *ngIf="milk === 'ONESHOT'">Az Sütlü</p>
+            <p *ngIf="milk === 'TWOSHOTS'">Orta</p>
+            <p *ngIf="milk === 'THREESHOTS'">Bol Sütlü</p>
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <br>Kahve Türü<br>
+        <select [(ngModel)]="coffeeType" style="width: '150px';">
+          <option *ngFor="let coffee of coffeeTypes" [value]="coffee" [attr.selected]="coffee">
+            {{coffee}}
+          </option>
+        </select>
+      </div>
     </div>
-
-    <div>
-      <p style="color: crimson;" *ngIf="stock.milkAmount <= 100">Süt Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.waterAmount <= 100">Su Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.cupCount <= 10">Bardak Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.standartCoffeeAmount <= 100">Standar Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.hazelnutCoffeeAmount <= 100">HazelNut Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.guatemalaCoffeeAmount <= 100">Guatemala Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.costaRicaCoffeeAmount <= 100">Costa Rica Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.colombiaCoffeeAmount <= 100">Colombia Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.antiguaCoffeeAmount <= 100">Antigua Bitmek Üzere</p>
-      <p style="color: crimson;" *ngIf="stock.elSalvadorCoffeeAmount <= 100">El Salvador Kahve Bitmek Üzere</p>
+    <div class="row" style="padding-top: '20px';">
+      <div><button style="margin-left: 400px; width: '150px';" on-click="prepareCoffee()">Kahveyi Hazırla</button></div>
     </div>
-    <div><button on-click="prepareCoffee()">Kahveyi Hazırla</button></div>
-    <div><button on-click="refill()">Stok Yenile</button></div>
+    <div class="row" style="padding-top: '20px';">
+      <div><button style="margin-left: 400px; width: '150px';" on-click="refill()">Stok Yenile</button></div>
+    </div>
   </div>
 </body>
+
+</html>

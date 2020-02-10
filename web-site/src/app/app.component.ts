@@ -73,8 +73,6 @@ export class AppComponent
       this.coffee.milkAmount = this.milkAmount;
       this.coffee.cupSize = this.cupSize;
   
-      console.log(this.coffee)
-  
       this.webApiService.postService(url, this.coffee).subscribe((response: Response)=> {
         var i: SweetAlertIcon = null;
 
